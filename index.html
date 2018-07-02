@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="message-text">
+	<button onclick="sendMessage()">Отправить сообщение</button>
+	<br>
+	<button onclick="getMessage()">Получить сообщение</button>
+
+	<script>
+		var xhr = new XMLHttpRequest();
+
+		function sendMessage() {
+			var textInput = document.querySelector('#message-text');
+			var messageText = textInput.value;
+			if(messageText.length === 0) {
+				alert('Пустое сообщение! Введите текст!');
+				return;
+			}
+
+			xhr.open('POST', '/sendMessage1');
+
+			xhr.send(messageText);
+
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4) {
+					switch(xhr.status) {
+						case 200:
+							alert('Сообщение отправлено');
+							break;
+						case 404:
+							alert('Неверный адрес');
+							break;
+					}
+					
+				}
+			}
+		}
+
+		function getMessage() {
+			xhr.open('GET', '/getMessage');
+
+			xhr.send();
+
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4 && xhr.status === 200) {
+					alert(xhr.responseText);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
