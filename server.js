@@ -1,10 +1,11 @@
 const express = require('express');
 const bp = require('body-parser');
 const path = require("path");
+const cors = require('cors');
 
 const app = express();
 
-let last = 'Тестовое'
+let last = 'Тестовое';
 let users = [
 	{
 		name: 'Ivan',
@@ -18,6 +19,7 @@ let users = [
 	}
 ];
 
+app.use(cors());
 app.use(express.static('public'));
 app.use(bp.json());
 app.use(bp.text());
