@@ -49,6 +49,17 @@ app.get('/user/:id', (req, res) => {
 	}
 });
 
+app.get('/user', (req, res) => {
+	if (users.length > 0) {
+		res.send(JSON.stringify(users));
+	} else {
+		res.status(404);
+		res.send({
+			error: 'Пользователи не найдены'
+		});
+	}
+});
+
 app.post('/user/', (req, res) => {
 	const length = users.push(req.body);
 	res.status(200);
