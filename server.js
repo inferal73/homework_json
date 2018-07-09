@@ -61,7 +61,7 @@ app.get('/user', (req, res) => {
 });
 
 app.post('/user/', (req, res) => {
-	const length = users.push(req.body);
+	const length = users.push(JSON.parse(req.body));
 	res.status(200);
 	res.send(String(length));
 });
