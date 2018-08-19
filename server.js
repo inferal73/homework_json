@@ -3,6 +3,8 @@ const bp = require('body-parser');
 const path = require("path");
 const cors = require('cors');
 
+const cities = require('./cities');
+
 const app = express();
 
 let last = 'Тестовое';
@@ -20,7 +22,6 @@ let users = [
 ];
 
 app.use(cors());
-app.use(express.static('public'));
 app.use(bp.json());
 app.use(bp.text());
 
@@ -64,6 +65,10 @@ app.post('/user/', (req, res) => {
 	const length = users.push(JSON.parse(req.body));
 	res.status(200);
 	res.send(String(length));
+});
+
+app.get('/cities', (req, res) => {
+  res.send(JSON.stringify(cities));
 });
 
 app.listen(3001, () => {
